@@ -8,10 +8,14 @@ class Profile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Profile',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),) ,centerTitle: true,backgroundColor: Colors.blueAccent,),
       body: Container(
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            CircleAvatar(
+              radius: 100,
+              backgroundImage: AssetImage('assets/images/profile.jpg'),
+            ),
+            SizedBox(height: 100,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(width: double.infinity,color: Colors.blueAccent,child: Padding(
@@ -20,7 +24,7 @@ class Profile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Name'),
-                    Text('Manooo'),
+                    Text('Mano'),
                   ],
                 ),
               )),
@@ -33,7 +37,7 @@ class Profile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Email'),
-                    Text('Mano@gmail.com'),
+                    Text('Mo@gmail.com'),
                   ],
                 ),
               )),

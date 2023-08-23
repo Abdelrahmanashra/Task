@@ -17,46 +17,97 @@ class Login extends StatelessWidget {
       appBar: AppBar(title: Text('Login',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),) ,centerTitle: true,backgroundColor: Colors.blueAccent,),
       body: Container(
 
-        child: Column(
-          children: [
-            Form(
-                key: formstate,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+
+            children: [
+              Text('Welcome back! Glad',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+              Text('To see you, Again!',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+              Form(
+                  key: formstate,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        customTextFiled(obscureText: false,hintText: '@gmail.com',textInputType:TextInputType.text ,textcontroller:emailController ,label: Text('Email')),
+                        SizedBox(height: 20,),
+                        customTextFiled(obscureText: true,hintText: 'Password',textInputType:TextInputType.text ,textcontroller:passwordController ,label: Text('Password')),
+                      ],
+                    ),
+                  )
+              ),
+              SizedBox(height: 20,),
+              TextButton(onPressed: (){
+                if(formstate.currentState!.validate())
+                {
+                  print("innnnnn");
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
+                    return BottomNavBar();
+                  }));
+                }
+                else
+                {
+                  print("error");
+                }
+                print(emailController.text);
+                print(passwordController.text);
+              }, child: Container(height: 30,width: 100,color: Colors.blueAccent,child: Center(child: Text('Login',style:TextStyle(color: Colors.white),)))),
+              SizedBox(height: 20,),
+              Stack(
+                children: [
+                  Divider(thickness: 1,color: Colors.black,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      customTextFiled(obscureText: false,hintText: '@gmail.com',textInputType:TextInputType.text ,textcontroller:emailController ,label: Text('Email')),
-                      SizedBox(height: 20,),
-                      customTextFiled(obscureText: true,hintText: 'Password',textInputType:TextInputType.text ,textcontroller:passwordController ,label: Text('Password')),
+                      Container(color:Colors.white, child: Padding(
+                        padding: const EdgeInsets.only(left: 8,right: 8),
+                        child: Text('Or Login with'),
+                      ),),
                     ],
+                  )
+                ],
+              ),
+              SizedBox(height: 20,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    width: 100,
+                    child: IconButton(
+                      onPressed: (){}, icon: Icon(Icons.facebook,color: Colors.blueAccent,),
+                    ),),
+                  Container(decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.grey),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                )
-            ),
-            SizedBox(height: 20,),
-            TextButton(onPressed: (){
-              if(formstate.currentState!.validate())
-              {
-                print("innnnnn");
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
-                  return BottomNavBar();
-                }));
-              }
-              else
-              {
-                print("error");
-              }
-              print(emailController.text);
-              print(passwordController.text);
-            }, child: Container(height: 30,width: 100,color: Colors.blueAccent,child: Center(child: Text('Login',style:TextStyle(color: Colors.white),)))),
-            Text('OR'),
-            TextButton(onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                return SignUp();
-              }));
+                      width: 100,child: IconButton(
+                        onPressed: (){}, icon: Icon(Icons.apple),
+                      )),
+                  Container( decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.grey),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                      width: 100,child: IconButton(
+                        onPressed: (){}, icon: Icon(Icons.g_mobiledata),
+                      )),
 
-            }, child: Container(height: 30,width: 100,color: Colors.blueAccent,child: Center(child: Text('Create account',style:TextStyle(color: Colors.white),)))),
-
-          ],
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Text('Don\'t have an account'),
+                    TextButton(onPressed: (){}, child: Text('Register now',style: TextStyle(color: Colors.red),))
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

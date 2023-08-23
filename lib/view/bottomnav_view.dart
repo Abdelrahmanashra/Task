@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mano_task/view/counter_view.dart';
 import 'package:mano_task/view/home_view.dart';
 import 'package:mano_task/view/profile_view.dart';
+import 'package:mano_task/view/test.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -12,8 +13,9 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
 
-  List screens = [Home(),Counter(),Profile()];
+  List screens = [Home(),Test(),Profile()];
   int screen = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
