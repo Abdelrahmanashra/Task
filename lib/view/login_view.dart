@@ -1,15 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mano_task/constnats/my_colors.dart';
 import 'package:mano_task/view/bottomnav_view.dart';
 import 'package:mano_task/view/signup_view.dart';
 
 import '../shared/custom_text_field.dart';
+import 'bottomnav_stateless_view.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
+
+  late UserCredential userCredential;
   GlobalKey<FormState> formstate=GlobalKey<FormState>();
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
+
+  Future loginUser(String email, String password)async{
+    try {
+      userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      print("********************");
+      print(userCredential);
+    } on FirebaseAuthException catch  (e) {
+      print('bad');
+      print('Failed with error code: ${e.code}');
+      print(e.message);
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,21 +57,40 @@ class Login extends StatelessWidget {
                   )
               ),
               SizedBox(height: 20,),
-              TextButton(onPressed: (){
-                if(formstate.currentState!.validate())
-                {
-                  print("innnnnn");
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
-                    return BottomNavBar();
-                  }));
-                }
-                else
-                {
-                  print("error");
-                }
-                print(emailController.text);
-                print(passwordController.text);
-              }, child: Container(height: 30,width: 100,color: Colors.blueAccent,child: Center(child: Text('Login',style:TextStyle(color: Colors.white),)))),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: Colors.deepPurple,
+                  ),
+
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(onPressed: ()async{
+                        if(formstate.currentState!.validate())
+                        {
+                          await loginUser(emailController.text, passwordController.text);
+                          print("innnnnn");
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                            return BottomNavStateless();
+                          }));
+
+                        }
+                        else
+                        {
+                          print("error");
+                        }
+                        print(emailController.text);
+                        print(passwordController.text);
+                      }, child: Text('Login',style:TextStyle(color: Colors.white),)),
+
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(height: 20,),
               Stack(
                 children: [
@@ -100,9 +139,14 @@ class Login extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Don\'t have an account'),
-                    TextButton(onPressed: (){}, child: Text('Register now',style: TextStyle(color: Colors.red),))
+                    Text('Don\'t have an account?'),
+                    TextButton(onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                        return SignUp();
+                      }));
+                    }, child: Text('Register now',style: TextStyle(color: Colors.red),))
                   ],
                 ),
               ),

@@ -20,6 +20,11 @@ Widget customTextFiled({required bool obscureText ,required TextInputType textIn
     autofocus: true,
     obscureText: obscureText,
     decoration: InputDecoration(
+      enabledBorder: OutlineInputBorder(
+        borderSide:
+        BorderSide(width: 3, color: Colors.grey), //<-- SEE HERE
+        borderRadius: BorderRadius.circular(50.0),
+      ),
       label: label,
       labelStyle: const TextStyle(fontSize: 18,color: Colors.black),
       hintText: hintText,
@@ -30,10 +35,10 @@ Widget customTextFiled({required bool obscureText ,required TextInputType textIn
             width: 3, color: MyColors.darkBlue),
       ),
 
-      enabledBorder: const UnderlineInputBorder(
-        borderSide: BorderSide(
-            width: 3, color: Colors.grey),
-      ),
+      // enabledBorder: const UnderlineInputBorder(
+      //   borderSide: BorderSide(
+      //       width: 3, color: Colors.grey),
+      // ),
     ),
   );
 }
